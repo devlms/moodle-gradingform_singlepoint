@@ -1,0 +1,18 @@
+.gradingform_singlepoint .gradingform_singlepoint-standard {
+    max-width: 32rem;
+}
+
+.gradingform_singlepoint .badge.gradingform_singlepoint-notyet {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.gradingform_singlepoint .badge.gradingform_singlepoint-meets {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.gradingform_singlepoint .badge.gradingform_singlepoint-beyond {
+    background-color: #cfe2ff;
+    color: #084298;
+}

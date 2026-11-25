@@ -1,0 +1,95 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template gradingform_singlepoint/singlepoint
+
+    A single-point rubric: one row per criterion with the standard, its points,
+    and (when filled) Not yet / Meets / Beyond with a comment.
+
+    Example context (json):
+    {
+        "name": "advancedgrading",
+        "editable": true,
+        "frozen": false,
+        "filled": true,
+        "scoring": "Meets and Beyond earn the criterion's points. Not yet earns 0%.",
+        "criteria": [{
+            "id": 4, "shortname": "Thesis", "description": "<p>States a clear, arguable claim.</p>", "points": "10",
+            "levels": [{"value": 0, "label": "Not yet", "checked": false, "inputid": "sp-4-0"},
+                       {"value": 1, "label": "Meets", "checked": true, "inputid": "sp-4-1"},
+                       {"value": 2, "label": "Beyond", "checked": false, "inputid": "sp-4-2"}],
+            "chosen": "Meets", "chosenvalue": 1, "chosenclass": "meets", "remark": "", "remarkformatted": "",
+            "remarkid": "sp-4-remark", "error": false
+        }]
+    }
+}}
+<div class="gradingform_singlepoint" data-region="gradingform_singlepoint">
+    <p class="gradingform_singlepoint-scoring text-muted small">{{scoring}}</p>
+    <table class="generaltable gradingform_singlepoint-table">
+        <thead>
+            <tr>
+                <th scope="col">{{#str}}criterion, gradingform_singlepoint{{/str}}</th>
+                <th scope="col" class="text-end">{{#str}}points, gradingform_singlepoint{{/str}}</th>
+                {{#filled}}
+                <th scope="col">{{#str}}mark, gradingform_singlepoint{{/str}}</th>
+                <th scope="col">{{#str}}comment, gradingform_singlepoint{{/str}}</th>
+                {{/filled}}
+            </tr>
+        </thead>
+        <tbody>
+        {{#criteria}}
+            <tr class="criterion{{#error}} table-danger{{/error}}" data-criterionid="{{id}}">
+                <th scope="row" class="gradingform_singlepoint-standard">
+                    <span class="fw-bold">{{shortname}}</span>
+                    <div class="fw-normal">{{{description}}}</div>
+                </th>
+                <td class="text-end text-nowrap">{{points}}</td>
+                {{#filled}}
+                <td>
+                    {{#editable}}
+                    <fieldset>
+                        <legend class="visually-hidden sr-only">{{shortname}}</legend>
+                        {{#levels}}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="{{inputid}}" name="{{name}}[criteria][{{id}}][level]"
+                                value="{{value}}" {{#checked}}checked{{/checked}}>
+                            <label class="form-check-label" for="{{inputid}}"><span class="visually-hidden sr-only">{{shortname}}: </span>{{label}}</label>
+                        </div>
+                        {{/levels}}
+                    </fieldset>
+                    {{/editable}}
+                    {{^editable}}
+                    {{#chosen}}<span class="badge gradingform_singlepoint-{{chosenclass}}">{{chosen}}</span>{{/chosen}}
+                    {{#frozen}}<input type="hidden" name="{{name}}[criteria][{{id}}][level]" value="{{chosenvalue}}">{{/frozen}}
+                    {{/editable}}
+                </td>
+                <td>
+                    {{#editable}}
+                    <label for="{{remarkid}}" class="visually-hidden sr-only">{{#str}}commenton, gradingform_singlepoint, {{shortname}}{{/str}}</label>
+                    <textarea class="form-control" id="{{remarkid}}" name="{{name}}[criteria][{{id}}][remark]" rows="2">{{remark}}</textarea>
+                    {{/editable}}
+                    {{^editable}}
+                    {{{remarkformatted}}}
+                    {{#frozen}}<input type="hidden" name="{{name}}[criteria][{{id}}][remark]" value="{{remark}}">{{/frozen}}
+                    {{/editable}}
+                </td>
+                {{/filled}}
+            </tr>
+        {{/criteria}}
+        </tbody>
+    </table>
+</div>

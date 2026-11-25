@@ -1,0 +1,56 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template gradingform_singlepoint/grades/grader/gradingpanel
+
+    The single-point rubric in the forum grader's side panel.
+
+    Example context (json):
+    {
+        "instanceid": 42,
+        "scoring": "Meets and Beyond earn the criterion's points. Not yet earns 0%.",
+        "criteria": [{
+            "id": 4, "name": "Thesis", "description": "<p>States a clear, arguable claim.</p>", "maxscore": 10,
+            "remark": "",
+            "levels": [{"value": 0, "label": "Not yet", "checked": false},
+                       {"value": 1, "label": "Meets", "checked": true},
+                       {"value": 2, "label": "Beyond", "checked": false}]
+        }]
+    }
+}}
+<form id="gradingform_singlepoint-{{uniqid}}">
+    <input type="hidden" name="instanceid" value="{{instanceid}}">
+    <p class="text-muted small">{{scoring}}</p>
+    {{#criteria}}
+    <fieldset class="mb-3 criterion">
+        <legend class="h5 fw-bold mb-1">{{name}} <span class="fw-normal text-muted small">({{#str}}pointscount, gradingform_singlepoint, {{maxscore}}{{/str}})</span></legend>
+        <div class="small mb-2">{{{description}}}</div>
+        <div class="mb-2">
+            {{#levels}}
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="advancedgrading[criteria][{{id}}][level]"
+                    id="gradingform_singlepoint-{{uniqid}}-{{id}}-{{value}}" value="{{value}}" {{#checked}}checked{{/checked}}>
+                <label class="form-check-label" for="gradingform_singlepoint-{{uniqid}}-{{id}}-{{value}}"><span class="visually-hidden">{{name}}: </span>{{label}}</label>
+            </div>
+            {{/levels}}
+        </div>
+        <label class="visually-hidden" for="gradingform_singlepoint-{{uniqid}}-{{id}}-remark">{{#str}}commenton, gradingform_singlepoint, {{name}}{{/str}}</label>
+        <textarea class="form-control" rows="2" name="advancedgrading[criteria][{{id}}][remark]"
+            id="gradingform_singlepoint-{{uniqid}}-{{id}}-remark">{{remark}}</textarea>
+    </fieldset>
+    {{/criteria}}
+</form>
