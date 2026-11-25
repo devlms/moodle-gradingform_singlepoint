@@ -37,18 +37,18 @@
     <p class="text-muted small">{{scoring}}</p>
     {{#criteria}}
     <fieldset class="mb-3 criterion">
-        <legend class="h5 fw-bold mb-1">{{name}} <span class="fw-normal text-muted small">({{#str}}pointscount, gradingform_singlepoint, {{maxscore}}{{/str}})</span></legend>
+        <legend class="h5 mb-1"><strong>{{name}}</strong> <span class="text-muted small">({{#str}}pointscount, gradingform_singlepoint, {{maxscore}}{{/str}})</span></legend>
         <div class="small mb-2">{{{description}}}</div>
         <div class="mb-2">
             {{#levels}}
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="advancedgrading[criteria][{{id}}][level]"
                     id="gradingform_singlepoint-{{uniqid}}-{{id}}-{{value}}" value="{{value}}" {{#checked}}checked{{/checked}}>
-                <label class="form-check-label" for="gradingform_singlepoint-{{uniqid}}-{{id}}-{{value}}"><span class="visually-hidden">{{name}}: </span>{{label}}</label>
+                <label class="form-check-label" for="gradingform_singlepoint-{{uniqid}}-{{id}}-{{value}}"><span class="gradingform_singlepoint-sronly">{{name}}: </span>{{label}}</label>
             </div>
             {{/levels}}
         </div>
-        <label class="visually-hidden" for="gradingform_singlepoint-{{uniqid}}-{{id}}-remark">{{#str}}commenton, gradingform_singlepoint, {{name}}{{/str}}</label>
+        <label class="gradingform_singlepoint-sronly" for="gradingform_singlepoint-{{uniqid}}-{{id}}-remark">{{#str}}commenton, gradingform_singlepoint, {{name}}{{/str}}</label>
         <textarea class="form-control" rows="2" name="advancedgrading[criteria][{{id}}][remark]"
             id="gradingform_singlepoint-{{uniqid}}-{{id}}-remark">{{remark}}</textarea>
     </fieldset>

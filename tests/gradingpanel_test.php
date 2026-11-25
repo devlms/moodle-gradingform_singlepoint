@@ -43,7 +43,6 @@ final class gradingpanel_test extends \advanced_testcase {
      * @return array
      */
     protected function setup_forum(): array {
-        global $DB;
         $this->resetAfterTest();
         $gen = $this->getDataGenerator();
         $course = $gen->create_course();
@@ -75,7 +74,7 @@ final class gradingpanel_test extends \advanced_testcase {
                 $ids[0] => ['level' => 2, 'remark' => 'Built on Sam\'s point'],
                 $ids[1] => ['level' => 0, 'remark' => 'No reading cited'],
             ]],
-        ]);
+        ], '', '&'); // Moodle 4.5 sets arg_separator.output to &amp;.
         $result = store::execute('mod_forum', $context->id, 'forum', $student->id, false, $formdata);
         $result = external_api::clean_returnvalue(store::execute_returns(), $result);
 
