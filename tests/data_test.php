@@ -32,8 +32,6 @@ require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
  * @copyright  2026 DevLMS
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \gradingform_singlepoint\privacy\provider
- * @covers     \backup_gradingform_singlepoint_plugin
- * @covers     \restore_gradingform_singlepoint_plugin
  */
 final class data_test extends \core_privacy\tests\provider_testcase {
     /**
